@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\user\\Desktop\\heta-user-crud\\logs\\error\\.a480c0ca5ea83364c4a0e8527264a614830051f7-audit.json",
+    "files": [
+        {
+            "date": 1660643383746,
+            "name": "C:\\Users\\user\\Desktop\\heta-user-crud\\logs\\error\\2022-08-16.error.log",
+            "hash": "bc8d2e01c202f6d67e9bbd46a9381a5d85ecb90abacc199d1ccd75c3d678bcce"
+        }
+    ],
+    "hashType": "sha256"
+}
