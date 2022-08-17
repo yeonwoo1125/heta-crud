@@ -6,8 +6,8 @@ export default class UserModel extends HetaSequelize {
 
         return this.model('user', {
                 id: {type: Sequelize.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true},
-                name: {type: Sequelize.STRING(200)},
-                age: {type: Sequelize.INTEGER.UNSIGNED}
+                name: {type: Sequelize.STRING(200), allowNull: false},
+                age: {type: Sequelize.INTEGER.UNSIGNED, allowNull: false}
             },
             options
         );
