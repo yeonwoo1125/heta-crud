@@ -17,15 +17,15 @@ export class UserController {
 
     //유저 목록 조회
     /** @RequestMapping('/', get)*/
-    findAllUser(req, res){
+    findAllUser(req, res) {
         const list = this.userService.getUsers();
         res.send(list);
     }
 
     //유저 상세 조회
     /** @RequestMapping('/:userId', get) */
-    findUser(req, res){
-        const userId = req.params.userId;
+    findUser(req, res) {
+        const userId = req.params.userId * 1;
         const user = this.userService.getUserById(userId);
 
         res.send(user);
@@ -33,8 +33,8 @@ export class UserController {
 
     //유저 정보 수정
     /** @RequestMapping('/:userId', put) */
-    updateUser(req, res){
-        const userId = req.params.userId;
+    updateUser(req, res) {
+        const userId = req.params.userId * 1;
         const name = req.body.name;
         const age = req.body.age * 1;
         const user = this.userService.updateUser(userId, name, age);
@@ -44,8 +44,8 @@ export class UserController {
 
     //유저 삭제
     /** @RequestMapping('/:userId', delete)*/
-    deleteUser(req, res){
-        const userId = req.params.userId;
+    deleteUser(req, res) {
+        const userId = req.params * 1;
         const list = this.userService.deleteUser(userId);
 
         res.send(list);

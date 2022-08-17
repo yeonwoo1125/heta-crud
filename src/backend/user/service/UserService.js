@@ -13,7 +13,6 @@ export class UserService {
                 name: name,
                 age: age
             });
-            console.log(user.id);
             return user;
         } catch (e) {
             console.error(e);
@@ -62,14 +61,14 @@ export class UserService {
 
     //유저 삭제
     /** @Transactional */
-    async deleteUser(id){
-        try{
+    async deleteUser(id) {
+        try {
             await this.userModel.destroy({
-                where : {id : id}
+                where: {id: id}
             });
 
             return await this.userModel.findAll();
-        }catch (e) {
+        } catch (e) {
             console.error(e);
         }
     }
