@@ -1,34 +1,32 @@
 import {HetaSequelize} from 'hetamvc'
 
 /** @Model */
-export default class UserModel extends HetaSequelize {
+export default class MemoModel extends HetaSequelize {
     init(Sequelize, options) {
 
-        return this.model('user', {
+        return this.model('memo', {
                 id: {
                     type: Sequelize.INTEGER.UNSIGNED,
                     primaryKey: true,
                     autoIncrement: true
                 },
-                name: {
-                    type: Sequelize.STRING(20),
+                title: {
+                    type: Sequelize.STRING(50),
                     allowNull: false
                 },
-                age: {
-                    type: Sequelize.INTEGER.UNSIGNED,
+                content: {
+                    type: Sequelize.STRING(200),
                     allowNull: false
                 }
             },
-            options
+            {
+                options,
+                timestamps : true
+            }
         );
     }
 
     static associate(models) {
-        this.hasMany(models.MemoModel, {
-            onDelete : 'CASCADE',
-            foreignKey : {
-                allowNull : false
-            }
-        });
+        this.belongsTo(models.UserModel);
     }
 }
