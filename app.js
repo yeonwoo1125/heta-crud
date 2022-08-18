@@ -64,7 +64,7 @@ serv.listen(appConfig._port, (err) => {
 require('hetamvc').init({
     scanPath: app_route,
     route: app,
-    sequelize: require('./sqlite.config.js'),
+    sequelize: require('./sequelize.config.js'),
     constants: appConfig,
     forceAwait: true
 }, {
