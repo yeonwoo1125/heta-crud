@@ -1,14 +1,14 @@
-var INFO = function () {
+const INFO = function () {
     console.log.apply(console, arguments);
 };
-var ERROR = INFO;
+const ERROR = INFO;
 ERROR.err = INFO;	//until overwritten
 
 //================ 각종 설정 로드
 let appConfig = require('./app.config.js');
 
 process.on('uncaughtException', function (err) {
-    if (err.code == 'EADDRINUSE') {
+    if (err.code === 'EADDRINUSE') {
         INFO('The server is already running. Stop the running server by closing its Command Prompt then try again.');
     } else
         ERROR.err(1, err);
@@ -31,7 +31,7 @@ INFO("Initializing server...");
 
 
 //server root
-var app_route = path.resolve(__dirname, './src/backend');
+const app_route = path.resolve(__dirname, './src/backend');
 app.engine('.html', require('ejs').__express);
 app.set('views', path.resolve(app_route, 'views'));
 app.set('view engine', 'html');
@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
 
-//================== copress header
+//================== compress header
 app.use(compress({
     filter: function (req, res) {
         return /json|text|javascript|dart|image\/svg\+xml|application\/x-font-ttf|application\/vnd\.ms-opentype|application\/vnd\.ms-fontobject/.test(res.getHeader('Content-Type'));
@@ -51,7 +51,7 @@ app.use(compress({
 }));
 
 //================ web server start.
-var serv = require('http').Server(app);
+const serv = require('http').Server(app);
 serv.listen(appConfig._port, (err) => {
     if (err) {
         return console.log(err)
