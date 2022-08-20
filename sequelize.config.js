@@ -1,8 +1,8 @@
 module.exports = {
     dialect: "mysql",
     username: "root",
-    password: "yeanwoo0619",
-    passKey: "q1w2e3",    //Password encryption key
+    password: "3bfdad8cbd0bbd4f8a3aeb16d115b4fe",
+    passKey: "q1w2e3",
     database: "heta_crud",
     host: "localhost",
     port: 3306,
@@ -16,12 +16,12 @@ module.exports = {
         typeCast: true
     },
     define: {
-        freezeTableName : true,
+        freezeTableName: true,
         timestamps: false
     },
-    pool:{
-        max:20,
-        min:5,
-        idle:10000
+    pool: {
+        max: 20,
+        min: 5,
+        idle: 10000
     }
 };
