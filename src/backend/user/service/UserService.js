@@ -1,4 +1,5 @@
 /** @Service */
+
 export class UserService {
     constructor() {
         /** @Inject('UserModel')*/
@@ -7,13 +8,16 @@ export class UserService {
 
     //유저 생성
     /** @Transactional */
-    async createUser(name, age) {
+    createUser(name, age, email) {
         try {
-            const user = await this.userModel.create({
+            const user = findByUserEmail(email, this.userModel)
+            if (user !== null) return false;
+
+            return this.userModel.create({
                 name: name,
-                age: age
+                age: age,
+                email: email
             });
-            return user;
         } catch (e) {
             console.error(e);
         }
@@ -21,9 +25,9 @@ export class UserService {
 
     //유저 목록 조회
     /** @Transactional */
-    async getUsers() {
+    getUsers() {
         try {
-            return await this.userModel.findAll();
+            return this.userModel.findAll();
         } catch (e) {
             console.error(e);
         }
@@ -31,9 +35,9 @@ export class UserService {
 
     //유저 상세 조회
     /** @Transactional */
-    async getUserById(id) {
+    getUserById(id) {
         try {
-            return await this.userModel.findByPk(id);
+            return this.userModel.findByPk(id);
         } catch (e) {
             console.error(e);
         }
@@ -41,9 +45,12 @@ export class UserService {
 
     //유저 정보 수정
     /** @Transactional */
-    async updateUser(id, name, age) {
+    updateUser(id, name, age) {
         try {
-            await this.userModel.update(
+            let user = this.userModel.findByPk(id);
+            if (user === null) return false;
+
+            this.userModel.update(
                 {
                     name: name,
                     age: age
@@ -51,9 +58,10 @@ export class UserService {
                 {
                     where: {id: id}
                 }
-            );
+            )
 
-            return await this.userModel.findByPk(id);
+            user = this.userModel.findByPk(id);
+            return user;
         } catch (e) {
             console.error(e);
         }
@@ -61,15 +69,27 @@ export class UserService {
 
     //유저 삭제
     /** @Transactional */
-    async deleteUser(id) {
+    deleteUser(id) {
         try {
-            await this.userModel.destroy({
+            let user = this.userModel.findByPk(id);
+            if (user === null) return false;
+
+
+            this.userModel.destroy({
                 where: {id: id}
             });
 
-            return await this.userModel.findAll();
+            return this.userModel.findAll();
         } catch (e) {
             console.error(e);
         }
     }
+
+}
+
+const findByUserEmail = async (email, model) => {
+    return await model.findOne({
+        where: {email: email},
+        raw: true
+    });
 }

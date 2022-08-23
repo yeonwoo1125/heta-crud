@@ -9,17 +9,22 @@ export class UserController {
     //유저 생성
     /** @RequestMapping('/', post) */
     createUser(req, res) {
-        const name = req.body.name;
-        const age = req.body.age * 1;
-        const user = this.userService.createUser(name, age);
-        res.send(user);
+        const {name, age, email} = req.body;
+        const user = this.userService.createUser(name, age * 1, email);
+        if(!user){
+            return res.send({
+                msg : '이미 사용하는 이메일'
+            });
+        }
+
+        return res.send(user);
     }
 
     //유저 목록 조회
     /** @RequestMapping('/', get)*/
     findAllUser(req, res) {
         const list = this.userService.getUsers();
-        res.send(list);
+        return res.send(list);
     }
 
     //유저 상세 조회
@@ -27,8 +32,13 @@ export class UserController {
     findUser(req, res) {
         const userId = req.params.userId * 1;
         const user = this.userService.getUserById(userId);
+        if(!user){
+            return res.send({
+                msg : '유저 없음'
+            });
+        }
 
-        res.send(user);
+        return res.send(user);
     }
 
     //유저 정보 수정
@@ -39,7 +49,13 @@ export class UserController {
         const age = req.body.age * 1;
         const user = this.userService.updateUser(userId, name, age);
 
-        res.send(user);
+        if(!user){
+            return res.send({
+                msg : '유저 없음'
+            });
+        }
+
+        return res.send(user);
     }
 
     //유저 삭제
@@ -48,6 +64,12 @@ export class UserController {
         const userId = req.params * 1;
         const list = this.userService.deleteUser(userId);
 
-        res.send(list);
+        if(!list){
+            return res.send({
+                msg : '유저 없음'
+            });
+        }
+
+        return res.json(list);
     }
 }
